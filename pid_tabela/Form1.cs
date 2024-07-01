@@ -6,5 +6,11 @@ namespace pid_tabela
         {
             InitializeComponent();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Form2 forma = new Form2();
+            forma.ShowDialog();
+        }
     }
 }
