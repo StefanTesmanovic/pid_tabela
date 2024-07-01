@@ -28,43 +28,59 @@
         /// </summary>
         private void InitializeComponent()
         {
-            textBox1 = new TextBox();
             button1 = new Button();
+            numericUpDown1 = new NumericUpDown();
+            label1 = new Label();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
             SuspendLayout();
-            // 
-            // textBox1
-            // 
-            textBox1.Location = new Point(125, 40);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(100, 23);
-            textBox1.TabIndex = 0;
             // 
             // button1
             // 
-            button1.Location = new Point(139, 88);
+            button1.Font = new Font("Segoe UI", 15F);
+            button1.Location = new Point(125, 90);
             button1.Name = "button1";
-            button1.Size = new Size(75, 23);
+            button1.Size = new Size(100, 39);
             button1.TabIndex = 1;
             button1.Text = "potvrdi";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
+            // numericUpDown1
+            // 
+            numericUpDown1.Font = new Font("Segoe UI", 15F);
+            numericUpDown1.Location = new Point(125, 50);
+            numericUpDown1.Name = "numericUpDown1";
+            numericUpDown1.Size = new Size(100, 34);
+            numericUpDown1.TabIndex = 2;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 15F);
+            label1.Location = new Point(12, 52);
+            label1.Name = "label1";
+            label1.Size = new Size(96, 28);
+            label1.TabIndex = 3;
+            label1.Text = "Broj faza: ";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(353, 543);
+            ClientSize = new Size(341, 479);
+            Controls.Add(label1);
+            Controls.Add(numericUpDown1);
             Controls.Add(button1);
-            Controls.Add(textBox1);
             Name = "Form1";
             Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private TextBox textBox1;
         private Button button1;
+        private NumericUpDown numericUpDown1;
+        private Label label1;
     }
 }
