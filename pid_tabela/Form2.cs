@@ -17,14 +17,15 @@ namespace pid_tabela
         {
             InitializeComponent();
             GenerateTable();
-            brojFaza = Convert.ToInt16(Form1.instance.brojFaza.Value);
+            
         }
         private void GenerateTable()
         {
+            brojFaza = Convert.ToInt16(Form1.instance.brojFaza.Value);
             // Create a TableLayoutPanel
             TableLayoutPanel tableLayoutPanel = new TableLayoutPanel
             {
-                RowCount = 3, // Increased to 3 rows
+                RowCount = 3 * (brojFaza+1) + 2, 
                 ColumnCount = 5,
                 Dock = DockStyle.Fill,
                 AutoSize = true,
@@ -38,10 +39,8 @@ namespace pid_tabela
             tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 15F));
             tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10F));
 
-            // Define row styles (AutoSize ensures rows grow to fit their contents)
-            tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-            tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-            tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+            for(int i = 0; i <= tableLayoutPanel.RowCount; i++ )
+                tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.AutoSize));
 
             // Add headers
             AddCellToTable(tableLayoutPanel, new Label() { Text = "Ime parametra", AutoSize = true, Font = new Font("Arial", 15) }, 0, 0, SystemColors.Control);
@@ -68,13 +67,23 @@ namespace pid_tabela
             };
 
             AddCellToTable(tableLayoutPanel, potvrdiButton, 3, 0, SystemColors.Control);
+            for (int i = 1; i <= brojFaza; i++)
+            {
+                AddCellToTable(tableLayoutPanel, new Label() { Text = i + ". Brzina zagrevanja", Dock = DockStyle.Fill, AutoSize = true, Font = new Font("Arial", 15) }, 0, 3*i, System.Drawing.Color.LightBlue);
+                AddCellToTable(tableLayoutPanel, new Label() { Text = "°C/h", Dock = DockStyle.Fill, AutoSize = true, Font = new Font("Arial", 15) }, 1, 3 * i, System.Drawing.Color.LightBlue);
+                TextBox valueTextBox1 = new TextBox() { AutoSize = true, Dock = DockStyle.Fill }; // Editable text box for value
+                AddCellToTable(tableLayoutPanel, valueTextBox1, 2, 3 * i, System.Drawing.Color.LightBlue);
 
-            // Add data row with custom background color
-            AddCellToTable(tableLayoutPanel, new Label() { Text = "Brzina zagrevanja", Dock = DockStyle.Fill, AutoSize = true, Font = new Font("Arial", 15) }, 0, 1, System.Drawing.Color.LightBlue);
-            AddCellToTable(tableLayoutPanel, new Label() { Text = "°C/h", Dock = DockStyle.Fill, AutoSize = true, Font = new Font("Arial", 15) }, 1, 1, System.Drawing.Color.LightBlue);
-            TextBox valueTextBox = new TextBox() { AutoSize = true, Dock = DockStyle.Fill }; // Editable text box for value
-            AddCellToTable(tableLayoutPanel, valueTextBox, 2, 1, System.Drawing.Color.LightBlue);
+                AddCellToTable(tableLayoutPanel, new Label() { Text = i + ". Temperatura", Dock = DockStyle.Fill, AutoSize = true, Font = new Font("Arial", 15) }, 0, 3 * i + 1, System.Drawing.Color.LightBlue);
+                AddCellToTable(tableLayoutPanel, new Label() { Text = "°C", Dock = DockStyle.Fill, AutoSize = true, Font = new Font("Arial", 15) }, 1, 3 * i + 1, System.Drawing.Color.LightBlue);
+                TextBox valueTextBox2 = new TextBox() { AutoSize = true, Dock = DockStyle.Fill }; // Editable text box for value
+                AddCellToTable(tableLayoutPanel, valueTextBox2, 2, 3 * i + 1, System.Drawing.Color.LightBlue);
 
+                AddCellToTable(tableLayoutPanel, new Label() { Text = i + ". Zadrška", Dock = DockStyle.Fill, AutoSize = true, Font = new Font("Arial", 15) }, 0, 3 * i + 2, System.Drawing.Color.LightBlue);
+                AddCellToTable(tableLayoutPanel, new Label() { Text = "min", Dock = DockStyle.Fill, AutoSize = true, Font = new Font("Arial", 15) }, 1, 3 * i + 2, System.Drawing.Color.LightBlue);
+                TextBox valueTextBox3 = new TextBox() { AutoSize = true, Dock = DockStyle.Fill }; // Editable text box for value
+                AddCellToTable(tableLayoutPanel, valueTextBox3, 2, 3 * i + 2, System.Drawing.Color.LightBlue);
+            }
             // Add the TableLayoutPanel to the form
             this.Controls.Add(tableLayoutPanel);
         }
