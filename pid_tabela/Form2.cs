@@ -12,10 +12,12 @@ namespace pid_tabela
 {
     public partial class Form2 : Form
     {
+        public int brojFaza;
         public Form2()
         {
             InitializeComponent();
             GenerateTable();
+            brojFaza = Convert.ToInt16(Form1.instance.brojFaza.Value);
         }
         private void GenerateTable()
         {
@@ -23,30 +25,53 @@ namespace pid_tabela
             TableLayoutPanel tableLayoutPanel = new TableLayoutPanel
             {
                 RowCount = 3, // Increased to 3 rows
-                ColumnCount = 3,
+                ColumnCount = 5,
                 Dock = DockStyle.Fill,
                 AutoSize = true,
                 AutoSizeMode = AutoSizeMode.GrowAndShrink,
             };
 
             // Define column styles
-            tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33F));
-            tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33F));
-            tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33F));
+            tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30F));
+            tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
+            tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 15F));
+            tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10F));
 
             // Define row styles (AutoSize ensures rows grow to fit their contents)
             tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.AutoSize));
             tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-            tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.AutoSize)); // Set to AutoSize for fixed height
+            tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.AutoSize));
 
             // Add headers
             AddCellToTable(tableLayoutPanel, new Label() { Text = "Ime parametra", AutoSize = true, Font = new Font("Arial", 15) }, 0, 0, SystemColors.Control);
             AddCellToTable(tableLayoutPanel, new Label() { Text = "Merna jedinica", AutoSize = true, Font = new Font("Arial", 15) }, 1, 0, SystemColors.Control);
             AddCellToTable(tableLayoutPanel, new Label() { Text = "Vrednost", AutoSize = true, Font = new Font("Arial", 15) }, 2, 0, SystemColors.Control);
 
+            // Create and size the button
+            Button potvrdiButton = new Button()
+            {
+                Text = "potvrdi",
+                Font = new Font("Arial", 15),
+                AutoSize = true
+            };
+
+            // Set the button's height explicitly based on the font size and padding
+            Size textSize = TextRenderer.MeasureText(potvrdiButton.Text, potvrdiButton.Font);
+            int padding = 6; // You can adjust this value as needed
+            potvrdiButton.Height = textSize.Height + padding;
+
+            // Ensure the button's size is set correctly by overriding the OnLayout event
+            potvrdiButton.Layout += (s, e) =>
+            {
+                potvrdiButton.Height = textSize.Height + padding;
+            };
+
+            AddCellToTable(tableLayoutPanel, potvrdiButton, 3, 0, SystemColors.Control);
+
             // Add data row with custom background color
-            AddCellToTable(tableLayoutPanel, new Label() { Text = "Brzina zagrevanja", AutoSize = true, Font = new Font("Arial", 15) }, 0, 1, System.Drawing.Color.LightBlue);
-            AddCellToTable(tableLayoutPanel, new Label() { Text = "°C/h", AutoSize = true, Font = new Font("Arial", 15) }, 1, 1, System.Drawing.Color.LightBlue);
+            AddCellToTable(tableLayoutPanel, new Label() { Text = "Brzina zagrevanja", Dock = DockStyle.Fill, AutoSize = true, Font = new Font("Arial", 15) }, 0, 1, System.Drawing.Color.LightBlue);
+            AddCellToTable(tableLayoutPanel, new Label() { Text = "°C/h", Dock = DockStyle.Fill, AutoSize = true, Font = new Font("Arial", 15) }, 1, 1, System.Drawing.Color.LightBlue);
             TextBox valueTextBox = new TextBox() { AutoSize = true, Dock = DockStyle.Fill }; // Editable text box for value
             AddCellToTable(tableLayoutPanel, valueTextBox, 2, 1, System.Drawing.Color.LightBlue);
 
@@ -54,13 +79,17 @@ namespace pid_tabela
             this.Controls.Add(tableLayoutPanel);
         }
 
-        private void AddCellToTable(TableLayoutPanel table, Control control, int column, int row, System.Drawing.Color backgroundColor)
+        private void AddCellToTable(TableLayoutPanel table, Control control, int column, int row, Color backColor)
         {
-            Panel panel = new Panel { Dock = DockStyle.Fill, BackColor = backgroundColor, Padding = new Padding(0), AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink };
-            control.Dock = DockStyle.Fill;
-            control.AutoSize = true;
-            panel.Controls.Add(control);
-            table.Controls.Add(panel, column, row);
+            control.BackColor = backColor;
+            table.Controls.Add(control, column, row);
+        }
+
+        private void AddCellToTable(TableLayoutPanel table, Control control, int column, int row, Color backColor, int colspan)
+        {
+            control.BackColor = backColor;
+            table.Controls.Add(control, column, row);
+            table.SetColumnSpan(control, colspan);
         }
     }
 }

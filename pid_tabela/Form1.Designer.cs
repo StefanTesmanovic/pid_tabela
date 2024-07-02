@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             button1 = new Button();
-            numericUpDown1 = new NumericUpDown();
+            brojFaza = new NumericUpDown();
             label1 = new Label();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)brojFaza).BeginInit();
             SuspendLayout();
             // 
             // button1
@@ -45,13 +45,13 @@
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
-            // numericUpDown1
+            // brojFaza
             // 
-            numericUpDown1.Font = new Font("Segoe UI", 15F);
-            numericUpDown1.Location = new Point(125, 50);
-            numericUpDown1.Name = "numericUpDown1";
-            numericUpDown1.Size = new Size(100, 34);
-            numericUpDown1.TabIndex = 2;
+            brojFaza.Font = new Font("Segoe UI", 15F);
+            brojFaza.Location = new Point(125, 50);
+            brojFaza.Name = "brojFaza";
+            brojFaza.Size = new Size(100, 34);
+            brojFaza.TabIndex = 2;
             // 
             // label1
             // 
@@ -69,18 +69,18 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(341, 479);
             Controls.Add(label1);
-            Controls.Add(numericUpDown1);
+            Controls.Add(brojFaza);
             Controls.Add(button1);
             Name = "Form1";
             Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)brojFaza).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
         private Button button1;
-        private NumericUpDown numericUpDown1;
-        private Label label1;
+        public NumericUpDown brojFaza;
+        public Label label1;
     }
 }
