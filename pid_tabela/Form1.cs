@@ -11,6 +11,7 @@ namespace pid_tabela
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if (brojFaza.Text == "0") return;
             Form2 forma = new Form2();
             forma.Show();
         }
